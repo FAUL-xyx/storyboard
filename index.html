@@ -3,299 +3,307 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Google Search Algorithms | Premium Storyboard</title>
-    <!-- Font Space Grotesk & Inter untuk kesan modern tech -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-    <!-- Lucide Icons -->
+    <title>Google Search Algorithms | Interactive Storyboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
+        /* CSS Premium Monochrome */
         :root {
-            --bg-base: #050505;
-            --panel-bg: #121212;
-            --panel-hover: #1a1a1a;
+            --bg-color: #0a0a0a;
+            --surface-color: #171717;
             --text-primary: #ffffff;
-            --text-secondary: #888888;
-            --border-color: #2a2a2a;
-            
-            /* Animasi ala React Bits (Smooth & Bouncy) */
-            --spring-easing: cubic-bezier(0.16, 1, 0.3, 1);
-            --transition-speed: 0.8s;
+            --text-secondary: #a3a3a3;
+            --border-color: #333333;
+            --accent-color: #ffffff;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            font-family: 'Inter', sans-serif;
         }
 
         body {
-            background-color: var(--bg-base);
+            background-color: var(--bg-color);
             color: var(--text-primary);
-            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            overflow-x: hidden;
+            padding: 2rem;
         }
 
-        /* Header */
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            background-color: var(--bg-color);
+        }
+
         header {
             text-align: center;
-            margin-bottom: 2rem;
-            padding-top: 2rem;
-            z-index: 10;
+            margin-bottom: 3rem;
         }
 
         h1 {
-            font-family: 'Space Grotesk', sans-serif;
             font-size: 2.5rem;
+            font-weight: 600;
             letter-spacing: -1px;
-            text-transform: uppercase;
+            margin-bottom: 0.5rem;
         }
 
-        p.subtitle {
+        header p {
             color: var(--text-secondary);
             font-weight: 300;
-            margin-top: 0.5rem;
         }
 
-        /* Container Accordion */
-        .accordion-wrapper {
-            display: flex;
-            width: 95vw;
-            max-width: 1400px;
-            height: 70vh;
-            min-height: 500px;
-            gap: 10px;
-            padding: 10px;
+        /* Layout Grid untuk UI Utama */
+        .storyboard-layout {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
         }
 
-        /* Individual Card/Panel */
-        .panel {
-            position: relative;
-            background-color: var(--panel-bg);
+        @media (max-width: 768px) {
+            .storyboard-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Tab / Grid Buttons */
+        .tab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 1rem;
+            align-content: start;
+        }
+
+        .tab-btn {
+            background-color: var(--surface-color);
+            color: var(--text-secondary);
             border: 1px solid var(--border-color);
-            border-radius: 24px;
+            padding: 1rem;
+            border-radius: 8px;
             cursor: pointer;
-            overflow: hidden;
-            flex: 0.5; /* Ukuran saat tertutup */
-            transition: flex var(--transition-speed) var(--spring-easing), 
-                        background-color 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .panel:hover {
-            background-color: var(--panel-hover);
-        }
-
-        .panel.active {
-            flex: 5; /* Ukuran saat terbuka (membesar 10x lipat) */
-            cursor: default;
-            background-color: #181818;
-            border-color: #444;
-        }
-
-        /* Konten Saat Tertutup (Vertikal) */
-        .collapsed-content {
-            position: absolute;
+            text-align: left;
+            transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            transition: opacity 0.3s ease;
-            opacity: 1;
-            white-space: nowrap;
+            gap: 0.5rem;
         }
 
-        .panel.active .collapsed-content {
-            opacity: 0;
-            pointer-events: none;
+        .tab-btn:hover {
+            border-color: var(--text-primary);
+            color: var(--text-primary);
         }
 
-        .collapsed-content .icon-box {
-            margin-bottom: 2rem;
-            color: var(--text-secondary);
+        .tab-btn.active {
+            background-color: var(--text-primary);
+            color: var(--bg-color);
+            border-color: var(--text-primary);
         }
 
-        .collapsed-content h3 {
-            font-family: 'Space Grotesk', sans-serif;
-            writing-mode: vertical-rl;
-            text-orientation: mixed;
-            transform: rotate(180deg);
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            letter-spacing: 2px;
-            text-transform: uppercase;
+        .tab-btn .year {
+            font-size: 0.75rem;
+            opacity: 0.7;
         }
 
-        /* Konten Saat Terbuka (Expanded) */
-        .expanded-content {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+        .tab-btn .title {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        /* Tampilan Konten */
+        .content-display {
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
             padding: 3rem;
             display: flex;
             flex-direction: column;
-            justify-content: flex-end;
+            justify-content: center;
+            min-height: 400px;
+            transition: opacity 0.4s ease;
+        }
+
+        .content-display.fade {
             opacity: 0;
-            visibility: hidden;
-            transform: translateY(20px);
-            transition: all 0.5s var(--spring-easing);
-            transition-delay: 0s;
-            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(20,20,20,0.2) 100%);
         }
 
-        .panel.active .expanded-content {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-            transition-delay: 0.3s; /* Delay biar animasi buka kelar dulu */
+        .content-icon {
+            margin-bottom: 1.5rem;
+            color: var(--accent-color);
         }
 
-        .expanded-content .year-badge {
-            display: inline-block;
-            background: #fff;
-            color: #000;
-            padding: 4px 12px;
-            border-radius: 20px;
+        .content-title {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
             font-weight: 600;
-            font-size: 0.8rem;
-            margin-bottom: 1rem;
-            align-self: flex-start;
         }
 
-        .expanded-content h2 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 3.5rem;
-            line-height: 1.1;
-            margin-bottom: 1rem;
+        .content-year {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
             text-transform: uppercase;
-            letter-spacing: -2px;
+            letter-spacing: 2px;
         }
 
-        .expanded-content p {
+        .content-desc {
             font-size: 1.1rem;
-            color: #cccccc;
-            max-width: 600px;
+            color: var(--text-secondary);
             font-weight: 300;
-            line-height: 1.6;
-        }
-        
-        .citation {
-            font-size: 0.75rem;
-            opacity: 0.6;
-            vertical-align: super;
         }
 
-        /* Responsif untuk Mobile */
-        @media (max-width: 800px) {
-            .accordion-wrapper {
-                flex-direction: column;
-                height: 100vh;
-                padding: 10px 20px;
-            }
-            .panel {
-                flex: 0.5;
-            }
-            .panel.active {
-                flex: 6;
-            }
-            .collapsed-content {
-                flex-direction: row;
-                width: 100%;
-                justify-content: flex-start;
-                padding-left: 20px;
-            }
-            .collapsed-content h3 {
-                writing-mode: horizontal-tb;
-                transform: none;
-                margin-left: 15px;
-            }
-            .collapsed-content .icon-box {
-                margin-bottom: 0;
-            }
-            .expanded-content h2 {
-                font-size: 2rem;
-            }
+        /* Citation Style */
+        .citation {
+            font-size: 0.8rem;
+            opacity: 0.5;
+            vertical-align: super;
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>Google Algorithm</h1>
-        <p class="subtitle">Evolusi Cerdas Mesin Pencari (2011 - 2019)</p>
-    </header>
+    <div class="container">
+        <header>
+            <h1>Google Search Algorithms</h1>
+            <p>Evolusi sistem pintar di balik mesin pencari terbesar di dunia.</p>
+        </header>
 
-    <div class="accordion-wrapper" id="accordion">
-        <!-- Panel akan di-generate via JavaScript -->
+        <div class="storyboard-layout">
+            <div class="tab-grid" id="tabContainer">
+                </div>
+
+            <div class="content-display" id="contentDisplay">
+                <div class="content-icon">
+                    <i data-lucide="search" width="48" height="48"></i>
+                </div>
+                <h2 class="content-title" id="dispTitle">Pilih Algoritma</h2>
+                <div class="content-year" id="dispYear">Untuk melihat detail</div>
+                <p class="content-desc" id="dispDesc">Klik salah satu kotak di sebelah kiri untuk mempelajari cara kerja masing-masing algoritma Google yang telah merubah sejarah internet.</p>
+            </div>
+        </div>
     </div>
 
     <script>
-        // Data 9 Algoritma dari Rangkuman
+        // Data Algoritma (Diambil langsung dari rangkuman file PDF lu)
         const algorithms = [
-            { id: 'pagerank', title: 'PageRank', year: 'Awal', icon: 'link', desc: 'Menentukan peringkat halaman berdasarkan jumlah dan kualitas tautan yang masuk. Tautan dari situs bereputasi tinggi meningkatkan kredibilitas <span class="citation"></span>.' },
-            { id: 'panda', title: 'Panda', year: '2011', icon: 'file-text', desc: 'Menghukum situs dengan konten tipis, berulang, atau spammy. Mengutamakan konten orisinal dan berkualitas tinggi <span class="citation"></span>.' },
-            { id: 'penguin', title: 'Penguin', year: '2012', icon: 'shield-alert', desc: 'Menghukum situs dengan teknik manipulatif seperti link farming. Memastikan hasil tidak didominasi situs spam atau manipulatif <span class="citation"></span>.' },
-            { id: 'hummingbird', title: 'Hummingbird', year: '2013', icon: 'feather', desc: 'Memahami makna kontekstual kueri, bukan hanya kata kunci. Mendukung pencarian semantik dan kueri percakapan kompleks <span class="citation"></span>.' },
-            { id: 'pigeon', title: 'Pigeon', year: '2014', icon: 'map-pin', desc: 'Menggabungkan sinyal SEO dan lokasi pengguna untuk menyajikan hasil bisnis lokal yang sangat relevan dan akurat <span class="citation"></span>.' },
-            { id: 'mobile', title: 'Mobile-Friendly', year: '2015', icon: 'smartphone', desc: 'Situs responsif mendapat peringkat lebih tinggi. Situs yang tidak mobile-friendly kena penalti pada pencarian seluler <span class="citation"></span>.' },
-            { id: 'rankbrain', title: 'RankBrain', year: '2015', icon: 'brain', desc: 'Menggunakan kecerdasan buatan (AI) untuk memahami kueri baru atau ambigu secara dinamis dan belajar dari data <span class="citation"></span>.' },
-            { id: 'medic', title: 'Medic', year: '2018', icon: 'heart-pulse', desc: 'Fokus pada situs kesehatan & keuangan dengan menekankan E-A-T (Expertise, Authoritativeness, Trustworthiness) <span class="citation"></span>.' },
-            { id: 'bert', title: 'BERT', year: '2019', icon: 'text-search', desc: 'Memahami konteks kata dari dua arah (bidirectional). Mampu menangkap makna sangat kompleks dalam kueri panjang <span class="citation"></span>.' }
+            {
+                id: 'pagerank',
+                title: 'PageRank',
+                year: 'Fondasi Awal',
+                icon: 'link-2',
+                [span_0](start_span)desc: 'Menentukan peringkat halaman berdasarkan jumlah dan kualitas tautan yang masuk <span class="citation">[span_0](end_span)</span>. [span_1](start_span)Tautan dari situs bereputasi tinggi dinilai dapat meningkatkan kredibilitas sebuah situs <span class="citation">[span_1](end_span)</span>.'
+            },
+            {
+                id: 'panda',
+                title: 'Panda',
+                year: '2011',
+                icon: 'file-text',
+                [span_2](start_span)desc: 'Bertujuan menghukum situs dengan konten tipis, berulang, atau bersifat spammy <span class="citation">[span_2](end_span)</span>. [span_3](start_span)Algoritma ini sangat mengutamakan dan mendorong hadirnya konten orisinal dan berkualitas tinggi <span class="citation">[span_3](end_span)</span>.'
+            },
+            {
+                id: 'penguin',
+                title: 'Penguin',
+                year: '2012',
+                icon: 'shield-alert',
+                [span_4](start_span)desc: 'Menghukum secara tegas situs yang menggunakan teknik manipulatif seperti link farming dan keyword stuffing <span class="citation">[span_4](end_span)</span>. [span_5](start_span)Fokus utamanya adalah mendorong praktik SEO yang etis <span class="citation">[span_5](end_span)</span>.'
+            },
+            {
+                id: 'hummingbird',
+                title: 'Hummingbird',
+                year: '2013',
+                icon: 'feather',
+                [span_6](start_span)desc: 'Mulai memahami makna kontekstual kueri dari pengguna, bukan lagi sekadar mencocokkan kata kunci <span class="citation">[span_6](end_span)</span>. [span_7](start_span)Mendukung penuh pencarian semantik dan kueri percakapan yang kompleks <span class="citation">[span_7](end_span)</span>.'
+            },
+            {
+                id: 'pigeon',
+                title: 'Pigeon',
+                year: '2014',
+                icon: 'map-pin',
+                [span_8](start_span)desc: 'Menggabungkan sinyal SEO tradisional dengan lokasi pengguna secara aktual untuk menyajikan hasil pencarian lokal <span class="citation">[span_8](end_span)</span>. [span_9](start_span)Ini sangat meningkatkan akurasi jarak dan lokasi untuk bisnis lokal <span class="citation">[span_9](end_span)</span>.'
+            },
+            {
+                id: 'mobile',
+                title: 'Mobile-Friendly',
+                year: '2015',
+                icon: 'smartphone',
+                [span_10](start_span)desc: 'Memastikan situs yang responsif mendapat peringkat lebih tinggi pada pencarian mobile <span class="citation">[span_10](end_span)</span>. [span_11](start_span)Mendorong secara masif pengembang web untuk mengoptimalkan tampilan bagi layar kecil <span class="citation">[span_11](end_span)</span>.'
+            },
+            {
+                id: 'rankbrain',
+                title: 'RankBrain',
+                year: '2015',
+                icon: 'brain',
+                [span_12](start_span)desc: 'Menggunakan kecerdasan buatan (AI) dan machine learning untuk memahami kueri baru atau ambigu secara dinamis <span class="citation">[span_12](end_span)</span>. [span_13](start_span)Sistem ini secara otomatis belajar dari data untuk memberikan hasil relevan <span class="citation">[span_13](end_span)</span>.'
+            },
+            {
+                id: 'medic',
+                title: 'Medic Update',
+                year: '2018',
+                icon: 'heart-pulse',
+                [span_14](start_span)desc: 'Berfokus ketat pada situs-situs yang membahas kesehatan, keuangan, dan kesejahteraan <span class="citation">[span_14](end_span)</span>. [span_15](start_span)Menekankan prinsip E-A-T: Expertise (Keahlian), Authoritativeness (Otoritas), dan Trustworthiness (Kepercayaan) <span class="citation">[span_15](end_span)</span>.'
+            },
+            {
+                id: 'bert',
+                title: 'BERT',
+                year: '2019',
+                icon: 'book-open',
+                [span_16](start_span)desc: 'Algoritma yang memahami konteks kata dari dua arah sekaligus (bidirectional) dalam sebuah kalimat <span class="citation">[span_16](end_span)</span>. [span_17](start_span)Sangat ahli menangkap makna kompleks dalam kueri panjang <span class="citation">[span_17](end_span)</span>.'
+            }
         ];
 
-        const accordion = document.getElementById('accordion');
+        const tabContainer = document.getElementById('tabContainer');
+        const displayBox = document.getElementById('contentDisplay');
+        const dispTitle = document.getElementById('dispTitle');
+        const dispYear = document.getElementById('dispYear');
+        const dispDesc = document.getElementById('dispDesc');
 
+        // Render Tombol Grid
         algorithms.forEach((algo, index) => {
-            const panel = document.createElement('div');
-            panel.className = `panel ${index === 0 ? 'active' : ''}`;
+            const btn = document.createElement('button');
+            btn.className = 'tab-btn';
+            if (index === 0) btn.classList.add('active'); // Set aktif di tombol pertama
             
-            // Struktur Konten
-            panel.innerHTML = `
-                <!-- Tampilan saat mengecil / collapsed -->
-                <div class="collapsed-content">
-                    <div class="icon-box"><i data-lucide="${algo.icon}" width="24" height="24"></i></div>
-                    <h3>${algo.title}</h3>
-                </div>
-
-                <!-- Tampilan saat membesar / expanded -->
-                <div class="expanded-content">
-                    <div>
-                        <span class="year-badge">${algo.year}</span>
-                        <h2>${algo.title}</h2>
-                        <p>${algo.desc}</p>
-                    </div>
-                </div>
+            btn.innerHTML = `
+                <span class="year">${algo.year}</span>
+                <span class="title">${algo.title}</span>
             `;
+            
+            btn.onclick = () => {
+                // Hapus state aktif dari tombol lain
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
 
-            // Logika Klik untuk Expand
-            panel.addEventListener('click', () => {
-                removeActiveClasses();
-                panel.classList.add('active');
-            });
+                // Efek Animasi Fade-out
+                displayBox.classList.add('fade');
+                
+                setTimeout(() => {
+                    // Update Konten
+                    dispTitle.textContent = algo.title;
+                    dispYear.textContent = algo.year;
+                    dispDesc.innerHTML = algo.desc;
+                    
+                    // Update Ikon
+                    const iconContainer = document.querySelector('.content-icon');
+                    iconContainer.innerHTML = `<i data-lucide="${algo.icon}" width="48" height="48"></i>`;
+                    lucide.createIcons(); // Render ulang ikon baru
 
-            accordion.appendChild(panel);
+                    // Efek Animasi Fade-in
+                    displayBox.classList.remove('fade');
+                }, 200); // Waktu ganti konten setengah durasi transisi CSS
+            };
+
+            tabContainer.appendChild(btn);
         });
 
-        // Fungsi hapus class active dari semua panel
-        function removeActiveClasses() {
-            const panels = document.querySelectorAll('.panel');
-            panels.forEach(panel => {
-                panel.classList.remove('active');
-            });
-        }
-
-        // Render Ikon dari Lucide
+        // Initialize Lucide Icons & klik item pertama secara default
         lucide.createIcons();
+        if(algorithms.length > 0) {
+            tabContainer.firstChild.click();
+        }
     </script>
 </body>
 </html>
-
