@@ -3,307 +3,323 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Google Search Algorithms | Interactive Storyboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <title>Peta Konsep: Evolusi Algoritma Google</title>
+    <!-- Font Premium: Playfair Display & Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,500;0,700;1,500&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
     <style>
-        /* CSS Premium Monochrome */
         :root {
-            --bg-color: #0a0a0a;
-            --surface-color: #171717;
-            --text-primary: #ffffff;
-            --text-secondary: #a3a3a3;
-            --border-color: #333333;
-            --accent-color: #ffffff;
+            --bg-dark: #111111;
+            --gold-light: #fcf6ba;
+            --gold-main: #d4af37;
+            --gold-dark: #aa771c;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(212, 175, 55, 0.4);
+            --text-main: #ffffff;
+            --text-muted: #aaaaaa;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Inter', sans-serif;
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-primary);
-            line-height: 1.6;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            /* Simulasi background gelap premium */
+            background: radial-gradient(circle at top center, #222 0%, #050505 100%);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
             min-height: 100vh;
-            padding: 2rem;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
         }
 
-        .container {
-            max-width: 1000px;
-            width: 100%;
-            background-color: var(--bg-color);
-        }
-
+        /* Header Styling */
         header {
             text-align: center;
-            margin-bottom: 3rem;
+            padding: 3rem 2rem 1rem;
         }
 
-        h1 {
-            font-size: 2.5rem;
-            font-weight: 600;
-            letter-spacing: -1px;
+        header h2 {
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            font-size: 1.2rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold-main);
             margin-bottom: 0.5rem;
+        }
+
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            /* Gradient Emas untuk Judul Utama */
+            background: linear-gradient(to right, var(--gold-dark), var(--gold-light), var(--gold-main));
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+            line-height: 1.2;
         }
 
         header p {
-            color: var(--text-secondary);
-            font-weight: 300;
-        }
-
-        /* Layout Grid untuk UI Utama */
-        .storyboard-layout {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 2rem;
-        }
-
-        @media (max-width: 768px) {
-            .storyboard-layout {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Tab / Grid Buttons */
-        .tab-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-            gap: 1rem;
-            align-content: start;
-        }
-
-        .tab-btn {
-            background-color: var(--surface-color);
-            color: var(--text-secondary);
-            border: 1px solid var(--border-color);
-            padding: 1rem;
-            border-radius: 8px;
-            cursor: pointer;
-            text-align: left;
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .tab-btn:hover {
-            border-color: var(--text-primary);
-            color: var(--text-primary);
-        }
-
-        .tab-btn.active {
-            background-color: var(--text-primary);
-            color: var(--bg-color);
-            border-color: var(--text-primary);
-        }
-
-        .tab-btn .year {
-            font-size: 0.75rem;
-            opacity: 0.7;
-        }
-
-        .tab-btn .title {
-            font-size: 1rem;
-            font-weight: 600;
-        }
-
-        /* Tampilan Konten */
-        .content-display {
-            background-color: var(--surface-color);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 3rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            min-height: 400px;
-            transition: opacity 0.4s ease;
-        }
-
-        .content-display.fade {
-            opacity: 0;
-        }
-
-        .content-icon {
-            margin-bottom: 1.5rem;
-            color: var(--accent-color);
-        }
-
-        .content-title {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-        }
-
-        .content-year {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            margin-bottom: 2rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .content-desc {
+            color: var(--text-muted);
             font-size: 1.1rem;
-            color: var(--text-secondary);
             font-weight: 300;
         }
 
-        /* Citation Style */
+        /* Timeline Container */
+        .timeline-wrapper {
+            position: relative;
+            width: 100%;
+            padding: 8rem 2rem 10rem;
+            overflow-x: auto;
+            /* Menyembunyikan scrollbar tapi tetap bisa di-scroll */
+            scrollbar-width: none; 
+        }
+        .timeline-wrapper::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Garis emas yang menghubungkan antar kartu */
+        .timeline-line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold-main), transparent);
+            box-shadow: 0 0 15px var(--gold-main);
+            z-index: 1;
+        }
+
+        .timeline-container {
+            display: inline-flex;
+            gap: 3rem;
+            padding: 0 5rem;
+            position: relative;
+            z-index: 2;
+            align-items: center;
+        }
+
+        /* Style Kartu Glassmorphism */
+        .card {
+            width: 280px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 3.5rem 1.5rem 2rem;
+            position: relative;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold-light);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        /* Efek Zig-zag (Selang-seling Atas Bawah seperti di gambar) */
+        .card:nth-child(odd) {
+            margin-top: -120px; /* Geser ke atas */
+        }
+        .card:nth-child(even) {
+            margin-top: 120px; /* Geser ke bawah */
+        }
+
+        /* Lingkaran Ikon di Atas Kartu */
+        .icon-wrapper {
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 80px;
+            background: #111;
+            border: 3px solid var(--gold-main);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: inset 0 0 15px rgba(212, 175, 55, 0.2), 0 10px 20px rgba(0,0,0,0.6);
+            color: var(--gold-light);
+        }
+
+        /* Lingkaran Angka Kecil */
+        .number-badge {
+            position: absolute;
+            bottom: -15px;
+            right: -15px;
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold-dark));
+            color: #000;
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid #111;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+
+        /* Teks di Dalam Kartu */
+        .card h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold-light);
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
         .citation {
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             opacity: 0.5;
             vertical-align: super;
+        }
+
+        /* Responsif untuk HP (Ubah jadi vertikal biar tetap terbaca) */
+        @media (max-width: 768px) {
+            .timeline-wrapper {
+                padding: 2rem 1rem;
+            }
+            .timeline-line {
+                display: none; /* Sembunyikan garis horizontal di HP */
+            }
+            .timeline-container {
+                display: flex;
+                flex-direction: column;
+                gap: 5rem;
+                padding: 2rem 0;
+            }
+            .card:nth-child(odd), .card:nth-child(even) {
+                margin-top: 0; /* Matikan efek zig-zag di HP */
+            }
+            header h1 {
+                font-size: 2.2rem;
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <header>
-            <h1>Google Search Algorithms</h1>
-            <p>Evolusi sistem pintar di balik mesin pencari terbesar di dunia.</p>
-        </header>
+    <header>
+        <h2>Peta Konsep:</h2>
+        <h1>Evolusi Algoritma<br>Pencarian Google</h1>
+        <p>Perjalanan Menuju Kualitas Pencarian Premium, Berkelas, dan Relevan</p>
+    </header>
 
-        <div class="storyboard-layout">
-            <div class="tab-grid" id="tabContainer">
-                </div>
-
-            <div class="content-display" id="contentDisplay">
-                <div class="content-icon">
-                    <i data-lucide="search" width="48" height="48"></i>
-                </div>
-                <h2 class="content-title" id="dispTitle">Pilih Algoritma</h2>
-                <div class="content-year" id="dispYear">Untuk melihat detail</div>
-                <p class="content-desc" id="dispDesc">Klik salah satu kotak di sebelah kiri untuk mempelajari cara kerja masing-masing algoritma Google yang telah merubah sejarah internet.</p>
-            </div>
+    <div class="timeline-wrapper">
+        <div class="timeline-line"></div>
+        
+        <div class="timeline-container" id="timeline">
+            <!-- Konten di-generate via JavaScript -->
         </div>
     </div>
 
     <script>
-        // Data Algoritma (Diambil langsung dari rangkuman file PDF lu)
+        // Data disusun sesuai urutan waktu/Peta Konsep
         const algorithms = [
             {
                 id: 'pagerank',
                 title: 'PageRank',
                 year: 'Fondasi Awal',
-                icon: 'link-2',
-                [span_0](start_span)desc: 'Menentukan peringkat halaman berdasarkan jumlah dan kualitas tautan yang masuk <span class="citation">[span_0](end_span)</span>. [span_1](start_span)Tautan dari situs bereputasi tinggi dinilai dapat meningkatkan kredibilitas sebuah situs <span class="citation">[span_1](end_span)</span>.'
+                icon: 'link',
+                desc: 'Menentukan peringkat halaman berdasarkan jumlah dan kualitas tautan. Tautan dari situs bereputasi tinggi memberi nilai lebih <span class="citation">[span_0](start_span)[span_0](end_span)</span>.'
             },
             {
                 id: 'panda',
                 title: 'Panda',
                 year: '2011',
-                icon: 'file-text',
-                [span_2](start_span)desc: 'Bertujuan menghukum situs dengan konten tipis, berulang, atau bersifat spammy <span class="citation">[span_2](end_span)</span>. [span_3](start_span)Algoritma ini sangat mengutamakan dan mendorong hadirnya konten orisinal dan berkualitas tinggi <span class="citation">[span_3](end_span)</span>.'
+                icon: 'layout-template',
+                desc: 'Menurunkan peringkat konten tipis, berulang, berkualitas rendah. Mengutamakan konten orisinal & informatif <span class="citation">[span_1](start_span)[span_1](end_span)</span>.'
             },
             {
                 id: 'penguin',
                 title: 'Penguin',
                 year: '2012',
                 icon: 'shield-alert',
-                [span_4](start_span)desc: 'Menghukum secara tegas situs yang menggunakan teknik manipulatif seperti link farming dan keyword stuffing <span class="citation">[span_4](end_span)</span>. [span_5](start_span)Fokus utamanya adalah mendorong praktik SEO yang etis <span class="citation">[span_5](end_span)</span>.'
+                desc: 'Mengurangi peringkat situs manipulatif (link farming, keyword stuffing). Mendorong praktik SEO etis <span class="citation">[span_2](start_span)[span_2](end_span)</span>.'
             },
             {
                 id: 'hummingbird',
                 title: 'Hummingbird',
                 year: '2013',
                 icon: 'feather',
-                [span_6](start_span)desc: 'Mulai memahami makna kontekstual kueri dari pengguna, bukan lagi sekadar mencocokkan kata kunci <span class="citation">[span_6](end_span)</span>. [span_7](start_span)Mendukung penuh pencarian semantik dan kueri percakapan yang kompleks <span class="citation">[span_7](end_span)</span>.'
+                desc: 'Memahami makna & konteks pencarian, bukan hanya kecocokan kata kunci. Hasil sesuai maksud pengguna <span class="citation">[span_3](start_span)[span_3](end_span)</span>.'
             },
             {
                 id: 'pigeon',
                 title: 'Pigeon',
                 year: '2014',
                 icon: 'map-pin',
-                [span_8](start_span)desc: 'Menggabungkan sinyal SEO tradisional dengan lokasi pengguna secara aktual untuk menyajikan hasil pencarian lokal <span class="citation">[span_8](end_span)</span>. [span_9](start_span)Ini sangat meningkatkan akurasi jarak dan lokasi untuk bisnis lokal <span class="citation">[span_9](end_span)</span>.'
+                desc: 'Mengutamakan hasil pencarian lokal berdasarkan lokasi pengguna & relevansi (contoh: restoran terdekat) <span class="citation">[span_4](start_span)[span_4](end_span)</span>.'
             },
             {
                 id: 'mobile',
                 title: 'Mobile-Friendly',
                 year: '2015',
                 icon: 'smartphone',
-                [span_10](start_span)desc: 'Memastikan situs yang responsif mendapat peringkat lebih tinggi pada pencarian mobile <span class="citation">[span_10](end_span)</span>. [span_11](start_span)Mendorong secara masif pengembang web untuk mengoptimalkan tampilan bagi layar kecil <span class="citation">[span_11](end_span)</span>.'
+                desc: 'Memberikan peringkat lebih baik pada situs yang tampil nyaman & responsif di layar kecil smartphone <span class="citation">[span_5](start_span)[span_5](end_span)</span>.'
             },
             {
                 id: 'rankbrain',
                 title: 'RankBrain',
                 year: '2015',
-                icon: 'brain',
-                [span_12](start_span)desc: 'Menggunakan kecerdasan buatan (AI) dan machine learning untuk memahami kueri baru atau ambigu secara dinamis <span class="citation">[span_12](end_span)</span>. [span_13](start_span)Sistem ini secara otomatis belajar dari data untuk memberikan hasil relevan <span class="citation">[span_13](end_span)</span>.'
+                icon: 'cpu',
+                desc: 'Menggunakan AI & machine learning untuk memahami pencarian baru atau ambigu dan memberikan hasil relevan <span class="citation">[span_6](start_span)[span_6](end_span)</span>.'
             },
             {
                 id: 'medic',
                 title: 'Medic Update',
                 year: '2018',
                 icon: 'heart-pulse',
-                [span_14](start_span)desc: 'Berfokus ketat pada situs-situs yang membahas kesehatan, keuangan, dan kesejahteraan <span class="citation">[span_14](end_span)</span>. [span_15](start_span)Menekankan prinsip E-A-T: Expertise (Keahlian), Authoritativeness (Otoritas), dan Trustworthiness (Kepercayaan) <span class="citation">[span_15](end_span)</span>.'
+                desc: 'Meningkatkan kualitas situs terutama pada topik kritis: kesehatan, keuangan, kesejahteraan (E-A-T) <span class="citation">[span_7](start_span)[span_7](end_span)</span>.'
             },
             {
                 id: 'bert',
                 title: 'BERT',
                 year: '2019',
-                icon: 'book-open',
-                [span_16](start_span)desc: 'Algoritma yang memahami konteks kata dari dua arah sekaligus (bidirectional) dalam sebuah kalimat <span class="citation">[span_16](end_span)</span>. [span_17](start_span)Sangat ahli menangkap makna kompleks dalam kueri panjang <span class="citation">[span_17](end_span)</span>.'
+                icon: 'languages',
+                desc: 'Memahami hubungan antarkata & konteks dua arah dalam kalimat. Menangkap maksud kueri kompleks dengan cerdas <span class="citation">[span_8](start_span)[span_8](end_span)</span>.'
             }
         ];
 
-        const tabContainer = document.getElementById('tabContainer');
-        const displayBox = document.getElementById('contentDisplay');
-        const dispTitle = document.getElementById('dispTitle');
-        const dispYear = document.getElementById('dispYear');
-        const dispDesc = document.getElementById('dispDesc');
+        const timelineContainer = document.getElementById('timeline');
 
-        // Render Tombol Grid
         algorithms.forEach((algo, index) => {
-            const btn = document.createElement('button');
-            btn.className = 'tab-btn';
-            if (index === 0) btn.classList.add('active'); // Set aktif di tombol pertama
+            // Pembuatan elemen HTML untuk setiap kartu
+            const card = document.createElement('div');
+            card.className = 'card';
             
-            btn.innerHTML = `
-                <span class="year">${algo.year}</span>
-                <span class="title">${algo.title}</span>
+            card.innerHTML = `
+                <div class="icon-wrapper">
+                    <i data-lucide="${algo.icon}" width="36" height="36" stroke-width="1.5"></i>
+                    <div class="number-badge">${index + 1}</div>
+                </div>
+                <h3>${algo.title}<br><span style="font-size: 1rem; font-family: 'Inter', sans-serif; font-weight: 300;">(${algo.year})</span></h3>
+                <p>${algo.desc}</p>
             `;
-            
-            btn.onclick = () => {
-                // Hapus state aktif dari tombol lain
-                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
 
-                // Efek Animasi Fade-out
-                displayBox.classList.add('fade');
-                
-                setTimeout(() => {
-                    // Update Konten
-                    dispTitle.textContent = algo.title;
-                    dispYear.textContent = algo.year;
-                    dispDesc.innerHTML = algo.desc;
-                    
-                    // Update Ikon
-                    const iconContainer = document.querySelector('.content-icon');
-                    iconContainer.innerHTML = `<i data-lucide="${algo.icon}" width="48" height="48"></i>`;
-                    lucide.createIcons(); // Render ulang ikon baru
-
-                    // Efek Animasi Fade-in
-                    displayBox.classList.remove('fade');
-                }, 200); // Waktu ganti konten setengah durasi transisi CSS
-            };
-
-            tabContainer.appendChild(btn);
+            timelineContainer.appendChild(card);
         });
 
-        // Initialize Lucide Icons & klik item pertama secara default
+        // Merender Ikon
         lucide.createIcons();
-        if(algorithms.length > 0) {
-            tabContainer.firstChild.click();
-        }
     </script>
 </body>
 </html>
